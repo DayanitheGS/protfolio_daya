@@ -1,65 +1,85 @@
-import Image from "next/image";
+'use client';
+import { useState } from 'react';
+import dynamic from 'next/dynamic';
+
+// Dynamic imports for client-only components
+const ParticleBackground = dynamic(() => import('@/components/ParticleBackground'), { ssr: false });
+const CustomCursor = dynamic(() => import('@/components/CustomCursor'), { ssr: false });
+const LoadingScreen = dynamic(() => import('@/components/LoadingScreen'), { ssr: false });
+const EasterEggs = dynamic(() => import('@/components/EasterEggs'), { ssr: false });
+const MouseGlow = dynamic(() => import('@/components/MouseGlow'), { ssr: false });
+const QuickNav = dynamic(() => import('@/components/QuickNav'), { ssr: false });
+
+import Navbar from '@/components/Navbar';
+import HeroSection from '@/components/HeroSection';
+import AboutSection from '@/components/AboutSection';
+import SkillsSection from '@/components/SkillsSection';
+import JourneySection from '@/components/JourneySection';
+import ProjectsSection from '@/components/ProjectsSection';
+import AILabSection from '@/components/AILabSection';
+import AchievementsSection from '@/components/AchievementsSection';
+import WhyHireSection from '@/components/WhyHireSection';
+import ContactSection from '@/components/ContactSection';
+
+function Footer() {
+  return (
+    <footer className="relative py-12 border-t border-white/5 bg-[#030306]">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+          <div className="font-orbitron text-sm font-bold" style={{ color: '#00E5FF' }}>
+            DGS<span style={{ color: '#7C3AED' }}>://</span>DAYANITHE
+          </div>
+          <div className="font-mono text-[10px] tracking-wider text-white/30 text-center">
+            © 2026 Dayanithe G S • Built with Next.js 16 + Framer Motion
+          </div>
+          <div className="flex items-center gap-6">
+            <a href="mailto:dayanithe11@gmail.com" className="font-mono text-[10px] tracking-wider text-white/30 hover:text-cyan-400 transition-colors">EMAIL</a>
+            <a href="https://github.com/DayanitheGS" target="_blank" rel="noopener noreferrer" className="font-mono text-[10px] tracking-wider text-white/30 hover:text-cyan-400 transition-colors">GITHUB</a>
+            <a href="https://linkedin.com/in/dayanithe" target="_blank" rel="noopener noreferrer" className="font-mono text-[10px] tracking-wider text-white/30 hover:text-cyan-400 transition-colors">LINKEDIN</a>
+          </div>
+        </div>
+
+        {/* Easter egg hint */}
+        <div className="mt-6 text-center">
+          <span className="font-mono text-[9px] text-white/15 tracking-widest">
+            💡 Try typing: /hire • /developer • /ai
+          </span>
+        </div>
+      </div>
+    </footer>
+  );
+}
 
 export default function Home() {
+  const [loading, setLoading] = useState(true);
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+    <>
+      {loading ? (
+        <LoadingScreen onComplete={() => setLoading(false)} />
+      ) : (
+        <main style={{ background: '#030306', minHeight: '100vh' }}>
+          <ParticleBackground />
+          <CustomCursor />
+          <MouseGlow />
+          <EasterEggs />
+          <QuickNav />
+          <Navbar />
+
+          <div className="relative z-10">
+            <HeroSection />
+            <AboutSection />
+            <SkillsSection />
+            <JourneySection />
+            <ProjectsSection />
+            <AILabSection />
+            <AchievementsSection />
+            <WhyHireSection />
+            <ContactSection />
+            <Footer />
+          </div>
+        </main>
+      )}
+    </>
   );
 }
